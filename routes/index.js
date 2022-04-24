@@ -6,6 +6,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+// ASM
+router.get('/asm', function (req, res, next) {
+  sample_name = req.query.sample_name;
+  step_index = req.query.step_index;
+  file_path = './public/samples/' + sample_name + '/step' + step_index + '/asm.simudata';
+  const fs =require('fs');
+  fs.readFile(file_path, (err, data) => {
+    if (err) throw err;
+    res.end(data.toString());
+  });
+});
+
+// SYMBOLS
 router.get('/symbols', function(req, res, next) {
   sample_name = req.query.sample_name;
   step_index = req.query.step_index;
@@ -13,8 +26,23 @@ router.get('/symbols', function(req, res, next) {
   const fs =require('fs');
   fs.readFile(file_path, (err, data) => {
     if (err) throw err;
+    console.info(data.toString())
     res.end(data.toString());
   });
 });
+
+// MEM MAP
+router.get('/memmap', function (req, res, next) {
+  sample_name = req.query.sample_name;
+  step_index = req.query.step_index;
+  file_path = './public/samples/' + sample_name + '/step' + step_index + '/memmap.simudata';
+  const fs =require('fs');
+  fs.readFile(file_path, (err, data) => {
+    if (err) throw err;
+    res.end(data.toString());
+  });
+});
+
+
 
 module.exports = router;
